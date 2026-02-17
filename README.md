@@ -1,5 +1,5 @@
-# pwa-ionos-Yamileth-Luna# 
-🔍 Parte 1: Investigación Teórica – PWA
+# pwa-ionos-Yamileth-Luna 
+## 🔍 Parte 1: Investigación Teórica – PWA
 
 ## 1. Web App Manifest (`manifest.json`)
   El Web App Manifest es un archivo JSON que contiene los metadatos de una Progressive Web App. Su función principal es permitir que el navegador reconozca la aplicación       como instalable y definir su apariencia cuando el usuario la instala en su dispositivo.
