@@ -1,70 +1,280 @@
-# pwa-ionos-Yamileth-Luna 
-## 🔍 Parte 1: Investigación Teórica – PWA
+# 📱 PWA -- Investigación Teórica
 
-## 1. Web App Manifest (`manifest.json`)
-  El Web App Manifest es un archivo JSON que contiene los metadatos de una Progressive Web App. Su función principal es permitir que el navegador reconozca la aplicación       como instalable y definir su apariencia cuando el usuario la instala en su dispositivo.
-  
-  La propiedad theme_color define el color principal de la aplicación. Este color es utilizado por el navegador y el sistema operativo para personalizar elementos visuales     como la barra superior cuando la aplicación está abierta.
-  
-  La propiedad background_color define el color de fondo que se muestra mientras la aplicación se está cargando. Esto evita que aparezca una pantalla blanca y proporciona      una transición visual más agradable.
-  
-  La propiedad display controla cómo se muestra la aplicación. Con el valor "standalone" la aplicación se comporta como una aplicación nativa, sin la barra del navegador.      Con "browser" se muestra como una página web normal con todos los controles del navegador.
-  
-  El array de icons contiene los íconos de la aplicación en diferentes tamaños. Estos son utilizados por el sistema operativo para mostrar la aplicación en la pantalla de      inicio y durante la instalación. Sin estos íconos, el navegador no permitirá instalar la aplicación.
+**Proyecto:** pwa-ionos-Yamileth-Luna
 
-## 2. Service workers
-○	Describir el proceso de registro y el ciclo de vida (Installation, Activation, Fetching).
+------------------------------------------------------------------------
 
-  Proceso de registro
-  El registro es el primer paso para habilitar un Service Worker en una aplicación. Este proceso se realiza desde el archivo JavaScript principal de la página.
-  
-  Primero se verifica si el navegador es compatible con Service Workers. Luego se especifica la ruta del archivo del Service Worker para que el navegador lo descargue e        instale. El registro puede realizarse cuando la página carga, asegurando que el Service Worker esté disponible para futuras interacciones.
-  
-  Ciclo de vida
-  Installation
-  Durante la fase de instalación, el Service Worker se descarga y ejecuta por primera vez. En este momento se pueden precargar recursos estáticos como HTML, CSS, JavaScript    e imágenes en el caché. Esta fase solo ocurre una vez por cada versión del Service Worker. Si la instalación falla, el Service Worker no se activará.
-  
-  Activation
-  En la fase de activación, el Service Worker toma el control de la aplicación. Puede limpiar cachés antiguos de versiones anteriores y preparar el nuevo entorno de trabajo.   Una vez activado, comienza a manejar eventos como solicitudes de red y notificaciones push.
-  
-  Fetching
-  En la fase de fetch, el Service Worker intercepta las solicitudes de red que realiza la aplicación. Escucha cada solicitud y decide cómo responder, ya sea sirviendo          recursos desde el caché, obteniéndolos de la red o combinando ambas estrategias. Esta fase se ejecuta continuamente mientras la aplicación está en uso.
-  
-○	¿Cómo actúan como un proxy de red?
+# 🔍 Parte 1: Investigación Teórica -- Progressive Web Apps (PWA)
 
-  Los Service Workers como proxy de red
-  Los Service Workers actúan como un proxy de red porque se colocan estratégicamente entre el navegador y el servidor.          Interceptan todas las solicitudes que salen     de la aplicación y pueden modificar las respuestas antes de entregarlas.
-  
-  Esta capacidad les permite tomar decisiones inteligentes sobre cada solicitud. Pueden servir contenido desde el caché         cuando no hay conexión, pasar solicitudes a     la red cuando se necesita información actualizada, o combinar ambas opciones      para ofrecer el mejor rendimiento posible.
-  
-  Al funcionar como proxy, los Service Workers tienen control total sobre el tráfico de red de la aplicación, lo que permite    que las PWA funcionen sin conexión y ofrezcan   una experiencia de usuario superior.
-  
-  ## 3. Estrategias de Almacenamiento en Caché
-  Cache First
-  La estrategia Cache First busca primero el recurso solicitado en el caché. Si el recurso existe en el caché, se sirve inmediatamente sin necesidad de consultar la red. Si    no se encuentra en el caché, entonces se realiza una solicitud a la red para obtenerlo, y una vez recibido, se guarda una copia en el caché para futuras solicitudes.
-  
-  Esta estrategia ofrece la máxima velocidad de respuesta y permite el funcionamiento completamente offline. Sin embargo, tiene la desventaja de que puede mostrar contenido    desactualizado si los recursos en caché no se renuevan periódicamente. Es ideal para recursos estáticos como imágenes, archivos CSS, JavaScript y la estructura HTML base     de la aplicación.
-  
-  Network First
-  La estrategia Network First funciona de manera inversa. Primero intenta obtener el recurso desde la red para asegurar que se entrega la versión más actualizada. Si la        solicitud de red tiene éxito, devuelve ese recurso y aprovecha para actualizar el caché con la nueva versión. Si la solicitud de red falla debido a falta de conexión,        entonces recurre al caché como respaldo, sirviendo la última versión disponible.
-  
-  Esta estrategia garantiza que los datos sean siempre los más recientes cuando hay conexión disponible. La desventaja es que depende completamente de la disponibilidad de     internet y puede ser más lenta en redes deficientes. Es especialmente útil para APIs, datos de usuario y contenido dinámico que debe estar actualizado constantemente.
-  
-  Stale-While-Revalidate
-  La estrategia Stale-While-Revalidate busca ofrecer un equilibrio entre velocidad y actualización. Cuando se solicita un recurso, esta estrategia responde inmediatamente      con lo que tenga en el caché, aunque sea una versión antigua, proporcionando así una respuesta instantánea. Simultáneamente, en segundo plano, realiza una solicitud a la     red para obtener la versión más reciente del recurso. Una vez que recibe la respuesta actualizada, actualiza el caché para que esté disponible en futuras solicitudes.
-  
-  Esto significa que el usuario ve contenido inmediatamente, aunque sea ligeramente antiguo, y la próxima vez que solicite el mismo recurso verá la versión actualizada. Esta   estrategia es ideal para feeds de noticias, listas de productos y contenido que cambia frecuentemente pero donde la velocidad de respuesta es prioritaria.
+------------------------------------------------------------------------
 
-## 4. Seguridad y TLS
+# 1.  Web App Manifest (`manifest.json`)
 
-¿Por qué HTTPS es un requisito habilitador para los Service Workers?
+El **Web App Manifest** es un archivo en formato JSON que contiene los
+metadatos de una Progressive Web App. Su función principal es permitir
+que el navegador reconozca la aplicación como instalable y definir su
+apariencia y comportamiento cuando el usuario la instala en su
+dispositivo.
 
-  HTTPS es obligatorio para los Service Workers porque estos pueden interceptar y modificar todas las solicitudes de red. Sin el cifrado que proporciona HTTPS, un atacante     podría interceptar la comunicación entre el usuario y el servidor para robar información o inyectar código malicioso. Por esta razón, los navegadores bloquean el registro    de Service Workers en sitios que no utilicen HTTPS.
-  
-Impacto de los certificados en el "Install Prompt" del navegador
+## Propiedades principales
 
-  El Install Prompt es el diálogo que pregunta al usuario si desea instalar la PWA en su dispositivo. Para que este mensaje aparezca, se necesita un certificado SSL válido     que permita que el sitio funcione con HTTPS, junto con un Service Worker registrado y un manifest configurado correctamente.
-  
-  Si el certificado no es válido, está expirado o es autofirmado, el navegador muestra advertencias de seguridad y bloquea el registro del Service Worker. Como resultado, el   Install Prompt no aparece y la aplicación no puede ser instalada.
+### `theme_color`
 
+Define el color principal de la aplicación. Este color es utilizado por
+el navegador y el sistema operativo para personalizar elementos visuales
+como:
+
+-   Barra superior del navegador
+-   Barra de estado del sistema
+-   Color del encabezado de la aplicación
+
+Esto mejora la integración visual con el sistema operativo.
+
+### `background_color`
+
+Define el color de fondo que se muestra mientras la aplicación se está
+cargando.
+
+Beneficios:
+
+-   Evita que aparezca una pantalla blanca
+-   Mejora la experiencia visual
+-   Hace que la carga se vea más profesional
+
+------------------------------------------------------------------------
+
+### `display`
+
+Controla cómo se muestra la aplicación.
+
+Valores comunes:
+
+-   **standalone** → Se comporta como una app nativa, sin barra del
+    navegador
+-   **browser** → Se muestra como una página web normal
+-   **fullscreen** → Usa toda la pantalla
+-   **minimal-ui** → Interfaz mínima del navegador
+
+El valor más usado en PWA es: `standalone`.
+
+------------------------------------------------------------------------
+
+### `icons`
+
+El array de icons es una propiedad fundamental del archivo manifest.json, ya que define los íconos que representan visualmente la Progressive Web App en el dispositivo del usuario. Estos íconos permiten que la aplicación se identifique correctamente y se integre con el sistema operativo de forma similar a una aplicación nativa.
+
+------------------------------------------------------------------------
+
+# 2. Service Workers
+
+Los **Service Workers** son scripts que se ejecutan en segundo plano y
+permiten funcionalidades avanzadas como:
+
+-   Funcionamiento offline
+-   Cache inteligente
+-   Notificaciones push
+-   Mejor rendimiento
+
+------------------------------------------------------------------------
+
+## Proceso de registro
+
+El registro es el primer paso para habilitar un Service Worker.
+
+Proceso:
+
+1.  Se verifica si el navegador es compatible
+2.  Se especifica la ruta del archivo Service Worker
+3.  El navegador lo descarga e instala
+4.  Queda listo para ejecutarse en segundo plano
+
+Esto se realiza normalmente cuando carga la aplicación.
+
+------------------------------------------------------------------------
+
+## Ciclo de vida del Service Worker
+
+### Installation
+
+En esta fase:
+
+-   Se descarga el Service Worker
+-   Se ejecuta por primera vez
+-   Se pueden guardar archivos en caché
+
+Ejemplos:
+
+-   HTML
+-   CSS
+-   JavaScript
+-   Imágenes
+
+Si falla, no se activa.
+
+------------------------------------------------------------------------
+
+### Activation
+
+En esta fase:
+
+-   El Service Worker toma control de la aplicación
+-   Elimina cachés antiguos
+-   Prepara el entorno
+
+Después de esto, puede manejar eventos.
+
+------------------------------------------------------------------------
+
+### Fetch
+
+En esta fase:
+
+-   Intercepta solicitudes de red
+-   Decide cómo responder
+
+Puede:
+
+-   Usar caché
+-   Usar red
+-   Usar ambos
+
+Esta fase ocurre continuamente.
+
+------------------------------------------------------------------------
+
+## Service Worker como Proxy
+
+Actúan como un **proxy entre el navegador y el servidor**.
+
+Funciones:
+
+-   Interceptar solicitudes
+-   Modificar respuestas
+-   Servir contenido desde caché
+-   Permitir funcionamiento offline
+
+Esto mejora:
+
+-   Rendimiento
+-   Velocidad
+-   Experiencia del usuario
+
+------------------------------------------------------------------------
+
+# 3. Estrategias de Almacenamiento en Caché
+
+------------------------------------------------------------------------
+
+## Cache First
+
+Proceso:
+
+1.  Busca en caché
+2.  Si existe → lo usa
+3.  Si no → usa red y guarda en caché
+
+Ventajas:
+
+-   Muy rápido
+-   Funciona offline
+
+Desventajas:
+
+-   Puede mostrar contenido viejo
+
+Uso ideal:
+
+-   CSS
+-   JS
+-   Imágenes
+-   HTML
+
+------------------------------------------------------------------------
+
+## Network First
+
+Proceso:
+
+1.  Busca en red
+2.  Si funciona → guarda en caché
+3.  Si falla → usa caché
+
+Ventajas:
+
+-   Contenido actualizado
+
+Desventajas:
+
+-   Depende de internet
+
+Uso ideal:
+
+-   APIs
+-   Datos dinámicos
+
+------------------------------------------------------------------------
+
+## Stale‑While‑Revalidate
+
+Proceso:
+
+1.  Muestra caché inmediatamente
+2.  Descarga nueva versión en segundo plano
+3.  Actualiza caché
+
+Ventajas:
+
+-   Muy rápido
+-   Se mantiene actualizado
+
+Uso ideal:
+
+-   Listas
+-   Feeds
+-   Contenido frecuente
+
+------------------------------------------------------------------------
+
+# 4. Seguridad y TLS
+
+------------------------------------------------------------------------
+
+## ¿Por qué HTTPS es obligatorio?
+
+HTTPS es obligatorio porque los Service Workers pueden:
+
+-   Interceptar tráfico
+-   Modificar solicitudes
+-   Controlar la aplicación
+
+HTTPS garantiza:
+
+-   Cifrado
+-   Seguridad
+-   Protección contra ataques
+
+Sin HTTPS, el navegador bloquea el Service Worker.
+
+------------------------------------------------------------------------
+
+## Impacto del certificado en el Install Prompt
+
+El **Install Prompt** permite instalar la PWA.
+
+Requisitos:
+
+-   HTTPS válido
+-   Service Worker activo
+-   Manifest válido
+
+Si el certificado:
+
+-   Está expirado
+-   Es inválido
+-   Es autofirmado
+
+Entonces:
+
+-   No aparece el Install Prompt
+-   No se puede instalar la PWA
 
