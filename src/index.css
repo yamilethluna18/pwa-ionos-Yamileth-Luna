@@ -1,0 +1,104 @@
+:root {
+  font-family: "Segoe UI", "Poppins", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #5a3a47;
+  background: linear-gradient(135deg, #ffe4ec, #ffd6e7, #fff0f5);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+a {
+  font-weight: 600;
+  color: #ff8fab;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #ff5c8a;
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #ffe4ec, #ffd6e7, #fff0f5);
+}
+
+h1 {
+  font-size: 3em;
+  line-height: 1.1;
+  color: #ff8fab;
+  font-weight: 700;
+}
+
+button {
+  border-radius: 12px;
+  border: 1px solid #ffc1d6;
+  padding: 0.6em 1.4em;
+  font-size: 1em;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: #ff8fab;
+  color: white;
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(255, 143, 171, 0.3);
+
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: #ff5c8a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(255, 143, 171, 0.4);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 3px solid #ffc1d6;
+}
+
+
+input {
+  border-radius: 10px;
+  border: 1px solid #ffc1d6;
+  padding: 0.6em;
+  background-color: #fff6fa;
+  color: #5a3a47;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ff8fab;
+  box-shadow: 0 0 0 3px rgba(255, 143, 171, 0.2);
+}
+
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffe4ec;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ffb3c6;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff8fab;
+}
